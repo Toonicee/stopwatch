@@ -1,3 +1,3 @@
-import Progress from './Progress';
+import ProgressWrapper from './Progress';
 
-export default Progress;
+export default ProgressWrapper;

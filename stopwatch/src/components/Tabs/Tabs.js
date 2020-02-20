@@ -1,22 +1,29 @@
 import React from 'react';
+import { Tabs } from 'antd';
 
-class Tabs extends React.Component {
+import Timer from '../Timer'
+import Countdown from '../Countdown'
+
+import 'antd/dist/antd.css';
+
+class Tab extends React.Component {
 
   render() {
-    const { selectWidget, name } = this.props;
+    const { TabPane } = Tabs;
+    function callback(key) {
+      console.log(key);
+    }
     return (
-      <div>
-        <ul className="nav nav-tabs card-header-tabs">
-          <li className="nav-item">
-            <a onClick={({target}) => selectWidget(target)} name="time" className={`nav-link ${name === 'time' ? 'active' : '' }`} href="#">Time</a>
-          </li>
-          <li className="nav-item">
-            <a onClick={({target}) => selectWidget(target)} name="countdown" className={`nav-link ${name === 'countdown' ? 'active' : '' }`} href="#">Countdown</a>
-          </li>
-        </ul>
-      </div>
+      <Tabs defaultActiveKey="1" onChange={callback}>
+        <TabPane tab="Timer" key="1">
+          <Timer />
+        </TabPane>
+        <TabPane tab="Countdown" key="2">
+          <Countdown />
+        </TabPane>
+      </Tabs>
     )
   }
 }
 
-export default Tabs;
+export default Tab;

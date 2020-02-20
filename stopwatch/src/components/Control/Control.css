@@ -1,0 +1,26 @@
+@import '~antd/dist/antd.css';
+
+.wrapper-control button {
+  margin-left: 15px;
+}
+
+.btn-reset {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #fff;
+}
+
+.btn-reset:hover {
+  background-color: #d39e00;
+  border-color: #c69500;
+}
+
+.btn-reset:active {
+  background-color: #d39e00;
+  border-color: #c69500;
+}
+
+.btn-reset:focus {
+  background-color: #d39e00;
+  border-color: #c69500;
+}

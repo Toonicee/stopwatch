@@ -1,5 +1,10 @@
 import React from 'react';
 
+import Control from '../Control';
+import Tables from '../TimerResult';
+
+import './Timer.css';
+
 class Timer extends React.Component {
   constructor() {
     super();
@@ -9,7 +14,8 @@ class Timer extends React.Component {
       seconds: '00',
       miliseconds: '00',
       startDisabled: false,
-      stopDisabled: false
+      stopDisabled: false,
+      allTims: [],
     }
   }
 
@@ -47,6 +53,14 @@ updateTime = () => {
   });
 }
 
+stop = () => {
+  clearInterval(this.state.timer);
+  this.setState({
+    startDisabled: false,
+    stopDisabled: true,
+  })
+}
+
 reset = () => {
   const { stopDisabled } = this.state;
   clearInterval(this.state.timer);
@@ -66,10 +80,16 @@ reset = () => {
   render() {
     const { seconds, miliseconds, minutes, startDisabled } = this.state;
     return (
-      <div>
-        <h1>{`прошло ${minutes} минут ${seconds} секунд ${miliseconds} милисекунд`}</h1>
-        <button onClick={this.start} disabled={startDisabled}>start/pause</button>
-        <button onClick={this.reset}>reset</button>
+      <div className="timer-container">
+        <div className="timer-wrapper">
+          <p className="timer-clock">{`${minutes}:${seconds}.`}<span className="timer-msec">{`${miliseconds}`}</span></p>
+          </div>
+        <Control
+          reset={this.reset}
+          start={this.start}
+          startDisabled={startDisabled}
+          stop={this.stop}
+          />
       </div>
     )
   }

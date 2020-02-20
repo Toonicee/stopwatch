@@ -1,7 +1,13 @@
 import React from 'react';
+import { Progress } from 'antd';
 
-const Progress = () => {
-  return <h2>осталось 4 мин</h2>
+
+const ProgressWrapper = ({percent}) => {
+  return (
+    <div>
+      <Progress type="circle" percent={percent} />
+    </div>
+  )
 }
 
-export default Progress;
+export default ProgressWrapper;
