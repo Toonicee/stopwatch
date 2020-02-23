@@ -1,13 +1,8 @@
-.progress-time {
-  color: #1890ff;
-  font-size: 20px;
-  font-family: sans-serif;
-}
-
 .wrapper-progress {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .inner-progress {
@@ -21,3 +16,9 @@
     padding: 0 20px;
     margin-bottom: 30px;
 }
+
+.btn-progress {
+    position: absolute;
+        top: 0;
+        left: 0;
+    }
