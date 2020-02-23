@@ -15,7 +15,11 @@ const Control = (props) => {
         Stop
     </Button>
   )
+<<<<<<< HEAD:stopwatch/src/components/Control/Control.jsx
   const btnStart = (   
+=======
+  const btnStart = (
+>>>>>>> 544484ceadcbdbee769e01dcade538db71eebf93:stopwatch/src/components/Control/Control.jsx
     <Button 
       type="primary"
       onClick={start}
