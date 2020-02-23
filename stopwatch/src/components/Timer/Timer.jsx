@@ -1,8 +1,7 @@
 import React from 'react';
-
 import Control from '../Control';
-
 import './Timer.css';
+
 class Timer extends React.Component {
   constructor() {
     super();
@@ -16,20 +15,14 @@ class Timer extends React.Component {
       control: {
         startDisabled: false,
         stopDisabled: false,
-<<<<<<< HEAD:stopwatch/src/components/Timer/Timer.js
       },
     };
-=======
-      }
-    }
->>>>>>> 544484ceadcbdbee769e01dcade538db71eebf93:stopwatch/src/components/Timer/Timer.jsx
   }
 
   start = () => {
     this.updateTime();
   };
 
-<<<<<<< HEAD:stopwatch/src/components/Timer/Timer.js
   updateTime = () => {
     const timer = setInterval(() => {
       const {
@@ -67,7 +60,10 @@ class Timer extends React.Component {
   };
 
   stop = () => {
-    clearInterval(this.state.stopwatch.timer);
+    const {
+      stopwatch: { timer },
+    } = this.state;
+    clearInterval(timer);
     this.setState({
       control: {
         startDisabled: false,
@@ -79,8 +75,9 @@ class Timer extends React.Component {
   reset = () => {
     const {
       control: { stopDisabled },
+      timer,
     } = this.state;
-    clearInterval(this.state.stopwatch.timer);
+    clearInterval(timer);
     if (stopDisabled) {
       this.setState({
         stopwatch: {
@@ -111,88 +108,6 @@ class Timer extends React.Component {
             {`${minutes}:${seconds}.`}
             <span className="timer-msec">{`${miliseconds}`}</span>
           </p>
-=======
-updateTime = () => {
-  let timer = setInterval(() => {
-    const {stopwatch: { miliseconds, seconds, minutes } } = this.state;
-    let mil = (Number(miliseconds) + 1).toString();
-    let sec = seconds;
-    let min = minutes;
-  
-    if (Number(miliseconds) === 99) {
-      sec = (Number(seconds) + 1).toString();
-      mil = '00';
-    }
-  
-    if (Number(seconds) === 60) {
-      min = (Number(minutes) + 1).toString();
-      sec = '00';
-    }
-  
-    this.setState({
-      stopwatch: {
-        timer: timer,
-        seconds: sec.length === 1 ? '0' + sec : sec,
-        miliseconds: mil.length === 1 ? '0' + mil : mil,
-        minutes: min.length === 1 ? '0' + min : min,    
-      }
-    });
-  }, 10);
-  this.setState({ 
-    control: { 
-      startDisabled: true,
-      stopDisabled: false,
-    }
-  });
-}
-
-stop = () => {
-  clearInterval(this.state.stopwatch.timer);
-  this.setState({
-    control: {
-      startDisabled: false,
-      stopDisabled: true,
-    }
-  })
-}
-
-reset = () => {
-  const { control: { stopDisabled } } = this.state;
-  clearInterval(this.state.stopwatch.timer);
-  if (stopDisabled) {
-    this.setState({
-      stopwatch: {
-        seconds: '00',
-        miliseconds: '00',
-        minutes: '00',
-      }
-    })
-  }
-  this.setState({
-    control: {
-      startDisabled: false,
-      stopDisabled: true,
-    }
-  })
-}
-
-  render() {
-    const { 
-        stopwatch: { 
-          seconds, 
-          miliseconds, 
-          minutes 
-        } , 
-        control: { 
-          startDisabled 
-        } 
-      } = this.state;
-    
-    return (
-      <div className="timer-container">
-        <div className="timer-wrapper">
-          <p className="timer-clock">{`${minutes}:${seconds}.`}<span className="timer-msec">{`${miliseconds}`}</span></p>
->>>>>>> 544484ceadcbdbee769e01dcade538db71eebf93:stopwatch/src/components/Timer/Timer.jsx
         </div>
         <Control
           reset={this.reset}

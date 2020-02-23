@@ -1,5 +1,5 @@
 import React from 'react';
-import { message, Button } from 'antd';
+import { message } from 'antd';
 
 import Control from '../Control';
 import ProgressWrapper from '../Progress';
@@ -9,11 +9,11 @@ import './Countdown.css';
 
 class Countdown extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       timer: null,
-      sec: '',
-      min: '',
+      sec: 0,
+      min: 0,
       oldMin: 0,
       oldSec: 0,
       progress: false,
@@ -22,22 +22,22 @@ class Countdown extends React.Component {
       allTimeInSecind: 0,
       percent: 0,
       disabled: false,
-    }
+    };
   }
 
-  changeMin = (value) => {
+  changeMin = value => {
     this.setState({
       min: value,
-      oldMin: value,  
-    })
-  }
+      oldMin: value,
+    });
+  };
 
-  changeSec = (value) => {
+  changeSec = value => {
     this.setState({
       sec: value,
       oldSec: value,
-    })
-  }
+    });
+  };
 
   startTimer = () => {
     const { oldMin, oldSec } = this.state;
@@ -46,37 +46,37 @@ class Countdown extends React.Component {
         message.warning('Enter time timer!');
       };
 
-      this.setState({disabled: true})
-      setTimeout(() => this.setState({disabled: false}), 3500)
+      this.setState({ disabled: true });
+      setTimeout(() => this.setState({ disabled: false }), 3500);
 
       return warning();
     }
     this.setState({
       progress: true,
-      allTimeInSecind: (Number(oldSec) + Number(oldMin) * 60 ),
+      allTimeInSecind: Number(oldSec) + Number(oldMin) * 60,
       startDisabled: true,
       stopDisabled: false,
-    })
-    let timer = setInterval(() => {
+    });
+    const timer = setInterval(() => {
       const { sec, min, allTimeInSecind } = this.state;
       let second = sec === '' ? 0 : sec - 1;
       let minuts = min === '' ? 0 : min;
-      let num = allTimeInSecind - (Number(second) + Number(minuts) * 60);
+      const num = allTimeInSecind - (Number(second) + Number(minuts) * 60);
       this.setState({
-        percent: Math.floor(num/allTimeInSecind * 100),
-      })
+        percent: Math.floor((num / allTimeInSecind) * 100),
+      });
 
       if (second === 0 && minuts === 0) {
         document.getElementById('end').play();
         clearInterval(timer);
         this.setState({
-            startDisabled: false,
-            stopDisabled: true, 
-            disabled: true,
-          })
+          startDisabled: false,
+          stopDisabled: true,
+          disabled: true,
+        });
       }
 
-      if (second === '' || second === 0 && minuts !== 0) {
+      if (second === '' || (second === 0 && minuts !== 0)) {
         minuts -= 1;
         second = 60;
       }
@@ -84,22 +84,24 @@ class Countdown extends React.Component {
       this.setState({
         sec: second,
         min: minuts,
-        timer: timer,
-      })
-    },1000)
-  }
+        timer,
+      });
+    }, 1000);
+    return timer;
+  };
 
   stopTimer = () => {
-    clearInterval(this.state.timer);
+    const { timer } = this.state;
+    clearInterval(timer);
     this.setState({
       startDisabled: false,
-      stopDisabled: true,  
-    })
-  }
+      stopDisabled: true,
+    });
+  };
 
   resetTimer = () => {
-    const { stopDisabled } = this.state;
-    clearInterval(this.state.timer);
+    const { stopDisabled, timer } = this.state;
+    clearInterval(timer);
     if (stopDisabled) {
       this.setState({
         sec: '',
@@ -109,21 +111,19 @@ class Countdown extends React.Component {
         allTimeInSecind: 0,
         percent: 0,
         progress: false,
-      })
+      });
     }
     this.setState({
       startDisabled: false,
       stopDisabled: true,
       disabled: false,
-    })
-  }
-
+    });
+  };
 
   render() {
     const { min, sec, progress, percent, startDisabled, disabled } = this.state;
-    
-    const inputs = ( 
-      <React.Fragment>
+    const inputs = (
+      <>
         <div>
           <span>minuts</span>
           <IntegerStep value={min} change={this.changeMin} max={720} progress={progress} />
@@ -132,28 +132,30 @@ class Countdown extends React.Component {
           <span>seconds</span>
           <IntegerStep value={sec} change={this.changeSec} max={60} progress={progress} />
         </div>
-      </React.Fragment>
-    )
+      </>
+    );
 
     const progressWrapper = (
-      <ProgressWrapper 
-        percent={percent} 
-        min={min} 
-        sec={sec} 
-        disabled={startDisabled} 
-        resetTimer={this.resetTimer} />
-    )
-    
+      <ProgressWrapper
+        percent={percent}
+        min={min}
+        sec={sec}
+        disabled={startDisabled}
+        resetTimer={this.resetTimer}
+      />
+    );
+
     const node = progress ? progressWrapper : inputs;
 
     return (
       <div className="wrapper-progress">
-        <div className="slide">
-          {node}
-        </div>
-        <audio id="end" src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"></audio>
+        <div className="slide">{node}</div>
+        <audio id="end">
+          <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3" type="audio/mp3" />
+          <track src="captions_en.vtt" kind="captions" srcLang="en" label="english_captions" />
+        </audio>
         <div>
-          <Control 
+          <Control
             reset={this.resetTimer}
             start={this.startTimer}
             stop={this.stopTimer}
@@ -161,8 +163,8 @@ class Countdown extends React.Component {
             disabled={disabled}
           />
         </div>
-        </div>
-    )
+      </div>
+    );
   }
 }
 
