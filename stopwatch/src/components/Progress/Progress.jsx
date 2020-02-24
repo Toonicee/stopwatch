@@ -26,9 +26,6 @@ ProgressWrapper.defaultProps = {
   resetTimer: () => {},
 };
 
-var r = 10;
-
-
 ProgressWrapper.propTypes = {
   percent: PropTypes.number,
   min: PropTypes.number,

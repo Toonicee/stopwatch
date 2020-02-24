@@ -13,6 +13,4 @@ const App = () => {
   );
 };
 
-const i = 10;
-
 export default App;
