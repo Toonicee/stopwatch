@@ -52,13 +52,9 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "npm run lint:fix",
       "pre-push": "npm test",
       "...": "..."
     }
   },
-  "lint-staged": {
-    "*.js": "npm run lint:fix",
-    "*.{js,css,md}": "prettier --write"
-  }
 }
