@@ -20,4 +20,8 @@ const Tab = () => {
   );
 };
 
+const arr = name => {
+  return nana;
+};
+
 export default Tab;
