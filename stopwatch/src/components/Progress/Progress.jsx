@@ -18,12 +18,6 @@ const ProgressWrapper = ({ percent, sec, min, disabled, resetTimer }) => {
   );
 };
 
-const qqr = () => {
-  return 0;
-};
-
-ary();
-
 ProgressWrapper.defaultProps = {
   percent: 0,
   sec: 0,
