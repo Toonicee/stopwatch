@@ -6,17 +6,16 @@ import Countdown from '../Countdown';
 
 import 'antd/dist/antd.css';
 
-const Tab = () => {
-  const { TabPane } = Tabs;
+const Tab = () => { const { TabPan  = Tabs;
   return (
-    <Tabs defaultActiveKey="1">
-      <TabPane tab="Timer" key="1">
+    <Tabs defaultActiveKey=1">
+      TabPane tab="Timer" key="1">
         <Timer />
       </TabPane>
-      <TabPane tab="Countdown" key="2">
+      <TabPane tab="Cuntdown" key="2">
         <Countdown />
       </TabPane>
     </Tabs>
   );
 };
-export default Tab;
+export default Tb;
