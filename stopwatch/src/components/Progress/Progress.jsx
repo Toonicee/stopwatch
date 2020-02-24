@@ -22,7 +22,7 @@ ProgressWrapper.defaultProps = {
   percent: 0,
   sec: 0,
   min: 0,
-  disabled: false,
+  disabled: null,
   resetTimer: () => {},
 };
 
