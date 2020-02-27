@@ -7,22 +7,16 @@ import './Control.css';
 
 const Control = props => {
   const { start, startDisabled, reset, stop, disabled } = props;
-
-  const btnStop = (
-    <Button type="danger" onClick={stop} disabled={!startDisabled}>
-      Stop
-    </Button>
-  );
-
-  const btnStart = (
-    <Button type="primary" onClick={start} disabled={disabled}>
-      Start
-    </Button>
-  );
-
+  const func = !startDisabled ? start : stop;
   return (
     <div className="wrapper-control">
-      {startDisabled ? btnStop : btnStart}
+      <Button
+        type={startDisabled ? 'danger' : 'primary'}
+        onClick={() => func()}
+        disabled={disabled}
+      >
+        {startDisabled ? 'Stop' : 'Start'}
+      </Button>
       <Button className="btn-reset" onClick={reset}>
         Reset
       </Button>

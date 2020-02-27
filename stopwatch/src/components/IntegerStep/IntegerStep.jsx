@@ -30,7 +30,7 @@ const IntegerStep = ({ value, change, max, progress }) => {
 
 IntegerStep.defaultProps = {
   value: 0,
-  max: 750,
+  max: 720,
   change: () => {},
   progress: false,
 };
@@ -43,3 +43,16 @@ IntegerStep.propTypes = {
 };
 
 export default IntegerStep;
+
+// можно ставить больше 720 минут
+// секунды становятся равны 60, после того как прошла минута +++++++
+// объединить startDisabled и stopDisabled
+// использовать рекурсивный setTimeout ++++++++
+// обновлять реже, чем каждую миллисекунду
+// хранить в стейте number
+// не хранить id таймера в стейте ++++++
+// вынести начальное состояние в переменную
+// объединить кнопку в один компонент
+// изменить это поведение в компоненте Countdown
+// this.setState({ disabled: true });
+// setTimeout(() => this.setState({ disabled: false }), 3500);

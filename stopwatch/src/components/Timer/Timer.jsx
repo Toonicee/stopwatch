@@ -2,19 +2,22 @@ import React from 'react';
 import Control from '../Control';
 import './Timer.css';
 
+const initialState = {
+  minutes: 0,
+  seconds: 0,
+  miliseconds: 0,
+};
+
+let timerId = null;
 class Timer extends React.Component {
   constructor() {
     super();
     this.state = {
       stopwatch: {
-        timer: null,
-        minutes: '00',
-        seconds: '00',
-        miliseconds: '00',
+        ...initialState,
       },
       control: {
         startDisabled: false,
-        stopDisabled: false,
       },
     };
   }
@@ -24,73 +27,63 @@ class Timer extends React.Component {
   };
 
   updateTime = () => {
-    const timer = setInterval(() => {
+    timerId = setTimeout(() => {
       const {
         stopwatch: { miliseconds, seconds, minutes },
       } = this.state;
-      let mil = (Number(miliseconds) + 1).toString();
+      let mil = Math.floor(miliseconds + 6.4);
       let sec = seconds;
       let min = minutes;
 
-      if (Number(miliseconds) === 99) {
-        sec = (Number(seconds) + 1).toString();
-        mil = '00';
+      if (miliseconds >= 90) {
+        sec = seconds + 1;
+        mil = 0;
       }
 
-      if (Number(seconds) === 60) {
-        min = (Number(minutes) + 1).toString();
-        sec = '00';
+      if (seconds === 60) {
+        min = minutes + 1;
+        sec = 0;
       }
-
       this.setState({
         stopwatch: {
-          timer,
-          seconds: sec.length === 1 ? `0${sec}` : sec,
-          miliseconds: mil.length === 1 ? `0${mil}` : mil,
-          minutes: min.length === 1 ? `0${min}` : min,
+          seconds: sec,
+          miliseconds: mil,
+          minutes: min,
         },
       });
-    }, 10);
+      this.updateTime();
+    }, 55);
     this.setState({
       control: {
         startDisabled: true,
-        stopDisabled: false,
       },
     });
   };
 
   stop = () => {
-    const {
-      stopwatch: { timer },
-    } = this.state;
-    clearInterval(timer);
+    clearTimeout(timerId);
     this.setState({
       control: {
         startDisabled: false,
-        stopDisabled: true,
       },
     });
   };
 
   reset = () => {
     const {
-      control: { stopDisabled },
-      timer,
+      control: { startDisabled },
     } = this.state;
-    clearInterval(timer);
-    if (stopDisabled) {
+    clearTimeout(timerId);
+    if (!startDisabled) {
       this.setState({
         stopwatch: {
-          seconds: '00',
-          miliseconds: '00',
-          minutes: '00',
+          ...initialState,
         },
       });
     }
     this.setState({
       control: {
         startDisabled: false,
-        stopDisabled: true,
       },
     });
   };
@@ -105,8 +98,10 @@ class Timer extends React.Component {
       <div className="timer-container">
         <div className="timer-wrapper">
           <p className="timer-clock">
-            {`${minutes}:${seconds}.`}
-            <span className="timer-msec">{`${miliseconds}`}</span>
+            {`${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}.`}
+            <span className="timer-msec">{`${
+              miliseconds < 10 ? `0${miliseconds}` : miliseconds
+            }`}</span>
           </p>
         </div>
         <Control
