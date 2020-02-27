@@ -61,7 +61,6 @@ class Countdown extends React.Component {
   timeRanges = () => {
     timerId = setTimeout(() => {
       const { sec, min, allTimeInSecind } = this.state;
-      console.log(sec, min);
       let second = sec - 1;
       let minuts = min;
       const num = allTimeInSecind - (second + minuts * 60);
@@ -69,7 +68,7 @@ class Countdown extends React.Component {
         percent: Math.floor((num / allTimeInSecind) * 100),
       });
 
-      if (second === '' || (second === 0 && minuts !== 0)) {
+      if (sec === 0 && min !== 0) {
         minuts -= 1;
         second = 59;
       }
